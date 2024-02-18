@@ -4,7 +4,10 @@ type SelectInputProps = {
   onChange?: ChangeEventHandler<HTMLSelectElement>;
   name?: string;
   label?: string;
-  options?: Array<{ text: string; value: string; defaultValue?: boolean }>;
+  options?: Array<{ text: string; value: string }>;
+  value?: string;
+  error?: boolean;
+  errorMessage?: string;
 };
 
 const SelectInput = ({
@@ -12,11 +15,11 @@ const SelectInput = ({
   onChange,
   name,
   options = [],
+  value,
+  error,
+  errorMessage,
 }: SelectInputProps) => {
-  const defaultOption = options.find((item) => item.defaultValue);
-  const [selectedOption, setSelectedOption] = useState(
-    defaultOption?.value || ""
-  );
+  const [selectedOption, setSelectedOption] = useState(value || "");
 
   const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
     setSelectedOption(event.target.value);
@@ -24,7 +27,7 @@ const SelectInput = ({
   };
 
   return (
-    <div>
+    <div className="text-start">
       {label && (
         <label
           htmlFor="countries"
@@ -38,6 +41,7 @@ const SelectInput = ({
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
         value={selectedOption}
         onChange={handleChange}
+        required
         {...(name ? { name } : {})}
       >
         {options.map(({ value, text }, index) => (
@@ -46,6 +50,9 @@ const SelectInput = ({
           </option>
         ))}
       </select>
+      {error && (
+        <p className="text-red-700 text-sm font-semibold">{errorMessage}</p>
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ type RadioButtonsProps = {
   onChange: ChangeEventHandler<HTMLInputElement>;
   value: string;
   label?: string;
+  name?: string;
 };
 
 const RadioButtons = ({
@@ -12,6 +13,7 @@ const RadioButtons = ({
   onChange,
   value: selectedOption,
   label,
+  name,
 }: RadioButtonsProps) => {
   return (
     <div className="col-span-2 flex flex-col justify-start items-start text-gray-900">
@@ -29,6 +31,7 @@ const RadioButtons = ({
               className="mr-1"
               checked={selectedOption === value}
               onChange={onChange}
+              name={name}
             />
             {text}
           </label>
