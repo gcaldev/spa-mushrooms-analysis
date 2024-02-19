@@ -12,6 +12,7 @@ import React from "react";
 import SelectInput from "@/components/SelectInput";
 import RadioButtons from "@/components/RadioButtons";
 import { useRouter } from "next/navigation";
+import LoadingPage from "@/components/Loader";
 
 const radioOptions = [
   {
@@ -493,7 +494,7 @@ const Form3 = ({
         ]}
         label="Superficie del tallo"
         name="stem-surface"
-        error={mushroomValidation["stem-root"]}
+        error={mushroomValidation["stem-surface"]}
         errorMessage={"Campo requerido*"}
       />
       <SelectInput
@@ -856,6 +857,9 @@ export default function MushroomAnalysisContainer() {
         "cap-diameter": Number(mushroom["cap-diameter"]),
       }),
     };
+
+    await fetchData();
+    /*
     await fetch("http://127.0.0.1:8000/predict-class", options)
       .then((res) => {
         if (!res.ok) throw new Error("Network response not ok.");
@@ -867,6 +871,23 @@ export default function MushroomAnalysisContainer() {
         router.push(isEdible ? "/comestible" : "/venenoso");
       })
       .catch((err) => console.log(err));
+      */
+  };
+
+  const fetchData = async () => {
+    try {
+      const res: any = await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve({ ok: true, json: () => ({ "is-edible": true }) });
+        }, 5000);
+      });
+      if (!res.ok) throw new Error("Network response not ok.");
+      const { "is-edible": isEdible } = await res.json();
+      setIsLoading(false);
+      router.push(isEdible ? "/comestible" : "/venenoso");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleBackButton = () => {
@@ -878,7 +899,7 @@ export default function MushroomAnalysisContainer() {
     setMushroom((prev) => ({ ...prev, [name]: value }));
   };
 
-  if (isLoading) return null;
+  if (isLoading) return <LoadingPage />;
 
   const Form = steps[step].inputs;
   console.log(mushroom);
