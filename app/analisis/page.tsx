@@ -32,6 +32,7 @@ type FormProps = {
   onChange?: ChangeEventHandler<HTMLInputElement>;
   setMushroom: Function;
   mushroom: IMushroom;
+  mushroomValidation: IMushroomValidation;
   setMushroomLabel: Function;
   mushroomLabel: Partial<IMushroomLabel>;
 };
@@ -42,6 +43,7 @@ const Form1 = ({
   mushroom,
   setMushroomLabel,
   mushroomLabel,
+  mushroomValidation,
 }: FormProps) => {
   const [checked, setChecked] = useState<boolean>(
     mushroom["does-bruise-or-bleed"]
@@ -85,6 +87,8 @@ const Form1 = ({
         name="habitat"
         label="Habitat"
         onChange={handleSelectChange}
+        error={mushroomValidation.habitat}
+        errorMessage="Campo requerido*"
       />
       <SelectInput
         value={mushroom.season}
@@ -98,6 +102,8 @@ const Form1 = ({
         label="Temporada"
         name="season"
         onChange={handleSelectChange}
+        error={mushroomValidation.season}
+        errorMessage="Campo requerido*"
       />
       <SelectInput
         value={mushroom["veil-type"]}
@@ -109,6 +115,8 @@ const Form1 = ({
         label="Tipo de velo"
         name="veil-type"
         onChange={handleSelectChange}
+        error={mushroomValidation["veil-type"]}
+        errorMessage="Campo requerido*"
       />
       <SelectInput
         value={mushroom["veil-color"]}
@@ -124,6 +132,8 @@ const Form1 = ({
         label="Color de velo"
         onChange={handleSelectChange}
         name="veil-color"
+        error={mushroomValidation["veil-color"]}
+        errorMessage="Campo requerido*"
       />
 
       <SelectInput
@@ -141,6 +151,8 @@ const Form1 = ({
         label="Color de las esporas"
         name="spore-print-color"
         onChange={handleSelectChange}
+        error={mushroomValidation["spore-print-color"]}
+        errorMessage={"Campo requerido*"}
       />
 
       <div className="flex items-center text-start">
@@ -169,6 +181,7 @@ const Form2 = ({
   mushroom,
   setMushroomLabel,
   mushroomLabel,
+  mushroomValidation,
 }: FormProps) => {
   const [diameter, setDiameter] = useState<string>(mushroom["cap-diameter"]);
   const [selectedOption, setSelectedOption] = useState(
@@ -223,6 +236,9 @@ const Form2 = ({
           value={diameter}
           onChange={handleInput}
         />
+        {mushroomValidation["cap-diameter"] && (
+          <p className="text-red-700 text-sm font-semibold">Campo requerido*</p>
+        )}
       </div>
       <SelectInput
         value={mushroom["cap-color"]}
@@ -244,6 +260,8 @@ const Form2 = ({
         ]}
         label="Color del sombrero"
         name="cap-color"
+        error={mushroomValidation["cap-color"]}
+        errorMessage={"Campo requerido*"}
       />
 
       <SelectInput
@@ -264,6 +282,8 @@ const Form2 = ({
         ]}
         label="Superficie"
         name="cap-surface"
+        error={mushroomValidation["cap-surface"]}
+        errorMessage={"Campo requerido*"}
       />
       <SelectInput
         value={mushroom["cap-shape"]}
@@ -280,6 +300,8 @@ const Form2 = ({
         ]}
         label="Forma"
         name="cap-shape"
+        error={mushroomValidation["cap-shape"]}
+        errorMessage={"Campo requerido*"}
       />
       <SelectInput
         value={mushroom["gill-attachment"]}
@@ -296,6 +318,8 @@ const Form2 = ({
         ]}
         label="Adhesión de filamentos"
         name="gill-attachment"
+        error={mushroomValidation["gill-attachment"]}
+        errorMessage={"Campo requerido*"}
       />
 
       <SelectInput
@@ -319,6 +343,8 @@ const Form2 = ({
         ]}
         label="Color de filamentos"
         name="gill-color"
+        error={mushroomValidation["gill-color"]}
+        errorMessage="Campo requerido*"
       />
       <RadioButtons
         options={radioOptions}
@@ -326,6 +352,8 @@ const Form2 = ({
         value={selectedOption}
         label="Espacio entre filamentos"
         name="gill-spacing"
+        error={mushroomValidation["gill-spacing"]}
+        errorMessage={"Campo requerido*"}
       />
     </>
   );
@@ -337,6 +365,7 @@ const Form3 = ({
   mushroom,
   setMushroomLabel,
   mushroomLabel,
+  mushroomValidation,
 }: FormProps) => {
   const [checked, setChecked] = useState<boolean>(mushroom["has-ring"]);
   const [height, setHeight] = useState<string>(mushroom["stem-height"]);
@@ -401,6 +430,9 @@ const Form3 = ({
           placeholder="70"
           onChange={handleWidthInput}
         />
+        {mushroomValidation["stem-width"] && (
+          <p className="text-red-700 text-sm font-semibold">Campo requerido*</p>
+        )}
       </div>
       <div>
         <label
@@ -420,6 +452,9 @@ const Form3 = ({
           value={height}
           onChange={handleHeightInput}
         />
+        {mushroomValidation["stem-height"] && (
+          <p className="text-red-700 text-sm font-semibold">Campo requerido*</p>
+        )}
       </div>
       <SelectInput
         value={mushroom["stem-root"]}
@@ -436,6 +471,8 @@ const Form3 = ({
           { text: "Enraizada", value: "r" }, // R - Enraizada
         ]}
         label="Raíz del tallo"
+        error={mushroomValidation["stem-root"]}
+        errorMessage={"Campo requerido*"}
       />
       <SelectInput
         value={mushroom["stem-surface"]}
@@ -456,6 +493,8 @@ const Form3 = ({
         ]}
         label="Superficie del tallo"
         name="stem-surface"
+        error={mushroomValidation["stem-root"]}
+        errorMessage={"Campo requerido*"}
       />
       <SelectInput
         value={mushroom["stem-color"]}
@@ -478,6 +517,8 @@ const Form3 = ({
         ]}
         label="Color del tallo"
         name="stem-color"
+        error={mushroomValidation["stem-color"]}
+        errorMessage={"Campo requerido*"}
       />
       <div className="flex items-center text-start">
         <input
@@ -516,6 +557,8 @@ const Form3 = ({
         name="ring-type"
         label="Tipo de anillo"
         onChange={handleSelectChange}
+        error={mushroomValidation["ring-type"]}
+        errorMessage={"Campo requerido*"}
       />
     </>
   );
@@ -584,6 +627,29 @@ const steps = [
   },
 ];
 
+export interface IMushroomValidation {
+  "cap-diameter": boolean;
+  "stem-width": boolean;
+  "stem-height": boolean;
+  "stem-color": boolean;
+  "cap-color": boolean;
+  "gill-color": boolean;
+  "cap-surface": boolean;
+  "cap-shape": boolean;
+  "does-bruise-or-bleed": boolean;
+  "gill-attachment": boolean;
+  "gill-spacing": boolean;
+  "stem-root": boolean;
+  "stem-surface": boolean;
+  "veil-type": boolean;
+  "veil-color": boolean;
+  "spore-print-color": boolean;
+  "has-ring": boolean;
+  "ring-type": boolean;
+  habitat: boolean;
+  season: boolean;
+}
+
 export interface IMushroom {
   "cap-diameter": string;
   "stem-width": string;
@@ -633,28 +699,29 @@ export interface IMushroomLabel {
 export default function MushroomAnalysisContainer() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [step, setStep] = useState<number>(0);
-  const [mushroomValidation, setMushroomValidation] = useState({
-    "cap-diameter": false,
-    "stem-width": false,
-    "stem-height": false,
-    "stem-color": false,
-    "cap-color": false,
-    "gill-color": false,
-    "cap-surface": false,
-    "cap-shape": false,
-    "does-bruise-or-bleed": false,
-    "gill-attachment": false,
-    "gill-spacing": false,
-    "stem-root": false,
-    "stem-surface": false,
-    "veil-type": false,
-    "veil-color": false,
-    "spore-print-color": false,
-    "has-ring": false,
-    "ring-type": false,
-    habitat: false,
-    season: false,
-  });
+  const [mushroomValidation, setMushroomValidation] =
+    useState<IMushroomValidation>({
+      "cap-diameter": false,
+      "stem-width": false,
+      "stem-height": false,
+      "stem-color": false,
+      "cap-color": false,
+      "gill-color": false,
+      "cap-surface": false,
+      "cap-shape": false,
+      "does-bruise-or-bleed": false,
+      "gill-attachment": false,
+      "gill-spacing": false,
+      "stem-root": false,
+      "stem-surface": false,
+      "veil-type": false,
+      "veil-color": false,
+      "spore-print-color": false,
+      "has-ring": false,
+      "ring-type": false,
+      habitat: false,
+      season: false,
+    });
   const [mushroom, setMushroom] = useState<IMushroom>({
     "cap-diameter": "",
     "stem-width": "",
@@ -679,12 +746,11 @@ export default function MushroomAnalysisContainer() {
   });
   const [mushroomLabel, setMushroomLabel] = useState<Partial<IMushroomLabel>>({
     "does-bruise-or-bleed": "No",
+    "has-ring": "No",
   });
   const router = useRouter();
 
   const isLastStep = steps.length - 1 === step;
-
-  const isValidMushroom = () => true;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -696,25 +762,82 @@ export default function MushroomAnalysisContainer() {
         "veil-type": veilType,
         "veil-color": veilColor,
         "spore-print-color": sporeColor,
-      } = mushroomValidation;
+      } = mushroom;
       const anyFieldInvalid =
         !season || !habitat || !veilType || !veilColor || !sporeColor;
 
-      if (!season) setMushroomValidation((prev) => ({ ...prev, season }));
-      if (!habitat) setMushroomValidation((prev) => ({ ...prev, habitat }));
-      if (!veilType)
-        setMushroomValidation((prev) => ({ ...prev, "veil-type": veilType }));
-      if (!veilColor)
-        setMushroomValidation((prev) => ({ ...prev, "veil-color": veilColor }));
-      if (!sporeColor)
-        setMushroomValidation((prev) => ({
-          ...prev,
-          "spore-print-color": veilColor,
-        }));
+      setMushroomValidation((prev) => ({
+        ...prev,
+        season: !season,
+        habitat: !habitat,
+        "veil-type": !veilType,
+        "veil-color": !veilColor,
+        "spore-print-color": !sporeColor,
+      }));
 
       if (anyFieldInvalid) return;
     }
+    if (step === 1) {
+      const {
+        "cap-diameter": capDiameter,
+        "cap-color": capColor,
+        "cap-shape": capShape,
+        "cap-surface": capSurface,
+        "gill-attachment": gillAttachment,
+        "gill-color": gillColor,
+        "gill-spacing": gillSpacing,
+      } = mushroom;
+      const anyFieldInvalid =
+        capDiameter === "" ||
+        !capColor ||
+        !capSurface ||
+        !gillAttachment ||
+        !gillColor ||
+        !gillSpacing;
 
+      setMushroomValidation((prev) => ({
+        ...prev,
+        "cap-diameter": capDiameter === "",
+        "cap-color": !capColor,
+        "cap-shape": !capShape,
+        "cap-surface": !capSurface,
+        "gill-attachment": !gillAttachment,
+        "gill-color": !gillColor,
+        "gill-spacing": !gillSpacing,
+      }));
+
+      if (anyFieldInvalid) return;
+    }
+    if (step === 2) {
+      const {
+        "stem-height": height,
+        "stem-width": width,
+        "stem-root": root,
+        "stem-surface": surface,
+        "stem-color": color,
+        "ring-type": ringType,
+      } = mushroom;
+
+      const anyFieldInvalid =
+        height === "" ||
+        width === "" ||
+        !root ||
+        !surface ||
+        !color ||
+        !ringType;
+
+      setMushroomValidation((prev) => ({
+        ...prev,
+        "stem-height": height === "",
+        "stem-width": width === "",
+        "stem-root": !root,
+        "stem-surface": !surface,
+        "stem-color": !color,
+        "ring-type": !ringType,
+      }));
+      console.log(mushroomValidation, "ACA");
+      if (anyFieldInvalid) return;
+    }
     if (!isLastStep) {
       setStep((prev) => prev + 1);
       return;
@@ -743,7 +866,7 @@ export default function MushroomAnalysisContainer() {
         const isEdible = res["is-edible"];
         router.push(isEdible ? "/comestible" : "/venenoso");
       })
-      .catch((err) => router.push("/error"));
+      .catch((err) => console.log(err));
   };
 
   const handleBackButton = () => {
@@ -792,6 +915,7 @@ export default function MushroomAnalysisContainer() {
                     mushroom={mushroom}
                     setMushroomLabel={setMushroomLabel}
                     mushroomLabel={mushroomLabel}
+                    mushroomValidation={mushroomValidation}
                   />
                 }
               </div>

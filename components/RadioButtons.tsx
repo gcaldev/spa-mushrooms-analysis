@@ -6,6 +6,8 @@ type RadioButtonsProps = {
   value: string;
   label?: string;
   name?: string;
+  error?: boolean;
+  errorMessage?: string;
 };
 
 const RadioButtons = ({
@@ -14,6 +16,8 @@ const RadioButtons = ({
   value: selectedOption,
   label,
   name,
+  error,
+  errorMessage,
 }: RadioButtonsProps) => {
   return (
     <div className="col-span-2 flex flex-col justify-start items-start text-gray-900">
@@ -37,6 +41,9 @@ const RadioButtons = ({
           </label>
         ))}
       </div>
+      {error && (
+        <p className="text-red-700 text-sm font-semibold">{errorMessage}</p>
+      )}
     </div>
   );
 };
